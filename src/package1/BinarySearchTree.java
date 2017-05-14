@@ -8,9 +8,11 @@ public class BinarySearchTree {
  
 	Node root;
 	Queue<Node> q;
+	int nodeCounter;
 	
 	public BinarySearchTree () {
 		q = new java.util.LinkedList<Node>();
+		nodeCounter=0;
 	}
 	
 	static class Node {
@@ -46,7 +48,7 @@ public class BinarySearchTree {
 		if(curr==null)
 			return;
 		
-		System.out.println(curr.data);
+		System.out.print(curr.data+" ");
 		if(curr.left!=null){
             q.add(curr.left);
         }
@@ -57,6 +59,32 @@ public class BinarySearchTree {
         levelOrderTraversal( q.remove());
 	}
 	
+	private int size(Node curr){
+	   	
+		if(curr!=null){
+			nodeCounter++;
+		}
+		if(curr.left !=null){
+			size(curr.left);
+		}
+		if(curr.right!=null){
+			size(curr.right);
+		}
+		return nodeCounter;
+	}
+	
+	
+	
+	private int getHeightOfTree(Node curr){
+		
+		if(curr==null){
+			return 0;
+		}
+		else{
+			return 1+ Math.max(getHeightOfTree(curr.left),getHeightOfTree(curr.right));
+		}
+	}
+	
 	public static void main (String args[]){
 		BinarySearchTree tree = new BinarySearchTree();
 		
@@ -65,9 +93,17 @@ public class BinarySearchTree {
 		tree.add(tree.root,5);
 		tree.add(tree.root, 30);
 		tree.add(tree.root, 12);
+		tree.add(tree.root, 14);
 		
-		
+		System.out.print("Level order traversal: ");
 		tree.levelOrderTraversal(tree.root);
+		System.out.println();
+		
+		int noOfNodes = tree.size(tree.root);
+		System.out.println("No. of nodes: "+noOfNodes);
+		
+		int heightOfTree =  tree.getHeightOfTree(tree.root);
+		System.out.println("Height of tree: "+heightOfTree);
 	}
 	
 }

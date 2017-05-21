@@ -85,6 +85,51 @@ public class BinarySearchTree {
 		}
 	}
 	
+	private Node searchNode(Node curr,int data){
+		
+		if(curr==null){
+			return null;
+		}
+		else {
+			if(curr.data>data){
+				return searchNode(curr.left,data);
+			}
+			else if(curr.data<data) {
+				return searchNode(curr.right,data);
+			}
+			else {
+				return curr;
+			}
+		}
+	}
+	
+	private int findPredecer(Node curr){
+		if(curr.left!=null){
+			return findPredecer(curr.left);
+		}
+		else {
+			return curr.data;
+		}
+	}
+	
+	private int inorderPredecer(Node curr,int data){
+		
+		 curr= searchNode(curr,data);
+		if(curr==null){
+			System.out.println("Node not found");
+			return -1;
+		}
+		else {
+			
+			if(curr.left !=null){
+				return findPredecer(curr.left);
+			}
+			else {
+				return -1;
+			}
+		}
+	}
+	
 	public static void main (String args[]){
 		BinarySearchTree tree = new BinarySearchTree();
 		
@@ -104,6 +149,9 @@ public class BinarySearchTree {
 		
 		int heightOfTree =  tree.getHeightOfTree(tree.root);
 		System.out.println("Height of tree: "+heightOfTree);
+		
+	    System.out.println("Inorderpreceder of 10: "+tree.inorderPredecer(tree.root,10));
+		
 	}
 	
 }
